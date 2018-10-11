@@ -32,7 +32,7 @@ def callback():
 def handle_message(event):
     bot_api.reply_message(
             event.reply_token,
-            TextSendaMessage(text=event.message.text)
+            TextSendMessage(text=event.message.text)
     )
 if __name__ == "__main__":
     app.run(debug=True)
