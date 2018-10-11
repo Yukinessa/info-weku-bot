@@ -1,6 +1,3 @@
-import os
-import sys
-from argparse import ArgumentParser
 from flask import Flask,request, abort
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
@@ -11,15 +8,9 @@ app = Flask(__name__)
 channel_secret = '0f0a9afab8d66c467aea84c5ce8622cd'
 channel_access_token = 'bh01/sO9woN0YCQR7B/BhK/8UZmP+p/YI9izITvWFUWtBDRiLvXQdiJXiYMg7eMBRQ6Tco7+/CsuBRs4JBvZ4ZYSmEppOrKPa2J1T/JQSccbqJ2Pe/kA61SKONI+8+9KlCijSRq2sHczt4Lla5OG3gdB04t89/1O/w1cDnyilFU='
 
-#if channel_secret is None:
-#    print('Specify LINE_CHANNEL_SECRET as environment variable.')
-#    sys.exit(1)
-#if channel_access_token is None:
-#    print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
-
 bot_api = LineBotApi(channel_access_token)
-#parser = WebhookParser(channel_secret)
 handler = WebhookHandler(channel_secret)
+
 @app.route("/")
 def home():
     return "SUCCESS"
