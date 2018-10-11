@@ -20,7 +20,10 @@ class Analisa:
         cmd = self.text
         json_data = open('data/{}.json'.format(cmd))
         data = json.load(json_data)
-        return data
+        nama = data['nama']
+        deskripsi = data['deskripsi']
+        penggunaan = data['penggunaan']
+        return [nama, deskripsi, penggunaan]
 
 @app.route("/")
 def home():
@@ -51,8 +54,8 @@ def handle_message(event):
         if(text.lower()==cmd):
             x=cmd
             analisa = Analisa(x)
-            data = analisa.show
-            data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
+            data = analisa.show()
+            data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data[0],data[1],data[2])
         else:
             data_text = "Perintah tidak ditemukan!"
     bot_api.reply_message(event.reply_token, TextSendMessage(text=data_text))
