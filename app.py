@@ -49,7 +49,7 @@ def handle_message(event):
     x = ''
     data_text = ''
     for cmd in command:
-        if(cari.lower()==cmd):
+        if(text.lower()==cmd):
             x=cmd
             data = analisa(x)
             data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'],)
