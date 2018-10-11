@@ -1,0 +1,5 @@
+{
+    "nama":"ls",
+    "deskripsi":"Perintah menampilkan isi sebuah direktori",
+    "penggunaan":"ls [OPTION] [FILE]"
+}

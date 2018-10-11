@@ -2,6 +2,7 @@ from flask import Flask,request, abort
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import (MessageEvent, TextMessage, TextSendMessage)
+import json
 
 app = Flask(__name__)
 
@@ -11,6 +12,17 @@ channel_access_token = 'bh01/sO9woN0YCQR7B/BhK/8UZmP+p/YI9izITvWFUWtBDRiLvXQdiJX
 bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
+class Analisa:
+    def __init__(self, text):
+        self.text = text 
+
+    def show(self):
+        cmd = self.text
+        json_data = open('data/{}.json'.format(cmd))
+        data = json.load(json_data)
+        return data
+
+analisa = Analisa  
 @app.route("/")
 def home():
     return "SUCCESS"
@@ -32,18 +44,18 @@ def callback():
 def handle_message(event):
     text = event.message.text
     profile = bot_api.get_profile(event.source.user_id)
-    if text.lower() == 'profil':
-        bot_api.reply_message(
-                event.reply_token, [
-                    TextSendMessage(text="Hello"),
-                    TextSendMessage(text=profile.display_name),
-                ]
-        )
-    else:
-        bot_api.reply_message(
-                event.reply_token, 
-                TextSendMessage(text="Hello")
-        )
+    file_command = open('data/command.txt')
+    command = [line.strip() for line in file_command]
+    x = ''
+    data_text = ''
+    for cmd in command:
+        if(cari.lower()==cmd):
+            x=cmd
+            data = analisa(x)
+            data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'],)
+        else:
+            data_text = "Perintah tidak ditemukan!"
+    bot_api.reply_message(event.reply_token, TextSendMessage(text=data_text))
 
 
 if __name__ == "__main__":

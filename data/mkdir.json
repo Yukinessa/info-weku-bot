@@ -1,0 +1,5 @@
+{
+    "nama":"mkdir",
+    "deskripsi":"Perintah membuat directory / folder",
+    "penggunaan":"mkdir [OPTION] NAMA_DIREKTORI"
+}
