@@ -22,7 +22,6 @@ class Analisa:
         data = json.load(json_data)
         return data
 
-analisa = Analisa  
 @app.route("/")
 def home():
     return "SUCCESS"
@@ -51,7 +50,8 @@ def handle_message(event):
     for cmd in command:
         if(text.lower()==cmd):
             x=cmd
-            data = analisa(x)
+            analisa = Analisa(x)
+            data = analisa.show
             data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
         else:
             data_text = "Perintah tidak ditemukan!"
