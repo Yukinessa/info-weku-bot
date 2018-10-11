@@ -26,13 +26,25 @@ def callback():
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
-    return 'OK'
+
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=event.message.text)
-    )
+    text = event.message.text
+    profile = bot_api.get_profile(event.source.user_id)
+    if text.lower() == 'profil':
+        bot_api.reply_message(
+                event.reply_token, [
+                    TextSendMessage(text="Hello"),
+                    TextSendMessage(text=profile.display_name),
+                ]
+        )
+    else:
+        bot_api.reply_message(
+                event.reply_token, 
+                TextSendMessage(text="Hello")
+        )
+
+
 if __name__ == "__main__":
     app.run(debug=True)
