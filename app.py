@@ -12,20 +12,14 @@ channel_access_token = 'bh01/sO9woN0YCQR7B/BhK/8UZmP+p/YI9izITvWFUWtBDRiLvXQdiJX
 bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
-class Analisa:
-    def __init__(self, text):
-        self.text = text 
-        self.data = None
-
-    def show(self):
-        cmd = self.text
-        json_data = open('data/{}.json'.format(cmd))
-        data = json.load(json_data)
-        self.data = data
-    
-    def __str__(self):
-        return self.data
-
+def command_list(text):
+    cmd_list = open('data/command.txt')
+    check = [line.strip() for line in cmd_list]
+    for cmd in check:
+        if(text.lower()==cmd):
+            cmd_detail = open('data/{}.json'.format(cmd))
+    data = json.load(cmd_detail)
+    return data
 
 @app.route("/")
 def home():
@@ -48,17 +42,8 @@ def callback():
 def handle_message(event):
     text = event.message.text
     profile = bot_api.get_profile(event.source.user_id)
-    file_command = open('data/command.txt')
-    command = [line.strip() for line in file_command]
-    for cmd in command:
-        if(text.lower()==cmd):
-            x=cmd
-            analisa = Analisa(x)
-            data = analisa
-            data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
-        else:
-            data_text = "Perintah tidak ditemukan!"
-    bot_api.reply_message(event.reply_token, TextSendMessage(text=data_text))
+    text_reply = command_list(text)
+    bot_api.reply_message(event.reply_token, TextSendMessage(text=text_reply))
 
 
 if __name__ == "__main__":
