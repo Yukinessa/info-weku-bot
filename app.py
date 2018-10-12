@@ -24,8 +24,10 @@ class Analisa(object):
             if(text.lower()==cmd):
                 cmd_detail = open('data/{}.json'.format(cmd))
                 data = json.load(cmd_detail)
+                break
             else:
                 data = None
+                
         if data == None:
             return "Perintah tidak ditemukan"
         return "Nama: {0}\nDeskripsi: {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])

@@ -1,6 +1,6 @@
 import json
 
-class Analisa(object):
+class Analisa:
     def __init__(self, text):
         self.text = text
 
@@ -12,11 +12,14 @@ class Analisa(object):
             if(text.lower()==cmd):
                 cmd_detail = open('data/{}.json'.format(cmd))
                 data = json.load(cmd_detail)
+                break
             else:
                 data = None
+
         if data == None:
             return "Perintah tidak ditemukan"
-        return data
+        return "Perintah ditemukan"
 
-ls = Analisa('ls')
-print(ls.command_list())
+ls = Analisa('mkdir')
+cmd = ls.command_list()
+print(cmd)
