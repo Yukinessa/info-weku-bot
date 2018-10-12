@@ -15,15 +15,17 @@ handler = WebhookHandler(channel_secret)
 class Analisa:
     def __init__(self, text):
         self.text = text 
+        self.data = None
 
     def show(self):
         cmd = self.text
         json_data = open('data/{}.json'.format(cmd))
         data = json.load(json_data)
-        nama = data['nama']
-        deskripsi = data['deskripsi']
-        penggunaan = data['penggunaan']
-        return [nama, deskripsi, penggunaan]
+        self.data = data
+    
+    def __str__(self):
+        return self.data
+
 
 @app.route("/")
 def home():
@@ -48,13 +50,11 @@ def handle_message(event):
     profile = bot_api.get_profile(event.source.user_id)
     file_command = open('data/command.txt')
     command = [line.strip() for line in file_command]
-    x = ''
-    data_text = ''
     for cmd in command:
         if(text.lower()==cmd):
             x=cmd
             analisa = Analisa(x)
-            data = analisa.show()
+            data = analisa
             data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data[0],data[1],data[2])
         else:
             data_text = "Perintah tidak ditemukan!"
