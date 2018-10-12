@@ -19,7 +19,7 @@ def command_list(text):
         if(text.lower()==cmd):
             cmd_detail = open('data/{}.json'.format(cmd))
     data = json.load(cmd_detail)
-    return "Nama: {0}\nDeskripsi: {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
+    return data
 
 @app.route("/")
 def home():
@@ -42,7 +42,8 @@ def callback():
 def handle_message(event):
     text = event.message.text
     profile = bot_api.get_profile(event.source.user_id)
-    text_reply = command_list(text)
+    data = command_list(text)
+    text_reply = "Nama: {0}\nDeskripsi: {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
     bot_api.reply_message(event.reply_token, TextSendMessage(text=text_reply))
 
 
