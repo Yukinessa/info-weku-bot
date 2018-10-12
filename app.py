@@ -15,11 +15,14 @@ handler = WebhookHandler(channel_secret)
 def command_list(text):
     cmd_list = open('data/command.txt')
     check = [line.strip() for line in cmd_list]
-    for cmd in check:
+    try:
+        for cmd in check:
         if(text.lower()==cmd):
             cmd_detail = open('data/{}.json'.format(cmd))
-    data = json.load(cmd_detail)
-    return data
+        data = json.load(cmd_detail)
+    finally:
+        return data
+    return "Data tidak ditemukan"
 
 @app.route("/")
 def home():
@@ -36,6 +39,7 @@ def callback():
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
+    return 'OK'
 
 
 @handler.add(MessageEvent, message=TextMessage)
