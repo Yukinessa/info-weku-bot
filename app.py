@@ -22,7 +22,7 @@ def command_list(text):
     data = json.load(cmd_detail)
     if data == None:
         return "Data tidak ditemukan"
-    return data
+    return "Nama: {0}\nDeskripsi: {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
 
 @app.route("/")
 def home():
@@ -46,8 +46,8 @@ def callback():
 def handle_message(event):
     text = event.message.text
     profile = bot_api.get_profile(event.source.user_id)
-    data = command_list(text)
-    text_reply = "Nama: {0}\nDeskripsi: {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
+    text_reply = command_list(text)
+    #text_reply = "Nama: {0}\nDeskripsi: {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
     bot_api.reply_message(event.reply_token, TextSendMessage(text=text_reply))
 
 
