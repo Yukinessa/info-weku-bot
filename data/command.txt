@@ -3,3 +3,4 @@ l
 ls
 mkdir
 rm
+uname
