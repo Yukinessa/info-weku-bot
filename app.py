@@ -20,9 +20,9 @@ def command_list(text):
             cmd_detail = open('data/{}.json'.format(cmd))
     
     data = json.load(cmd_detail)
-    try:
-        return data
-    return "Data tidak ditemukan"
+    if data == None:
+        return "Data tidak ditemukan"
+    return data
 
 @app.route("/")
 def home():
