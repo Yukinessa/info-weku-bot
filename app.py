@@ -15,12 +15,12 @@ handler = WebhookHandler(channel_secret)
 def command_list(text):
     cmd_list = open('data/command.txt')
     check = [line.strip() for line in cmd_list]
-    try:
-        for cmd in check:
+    for cmd in check:
         if(text.lower()==cmd):
             cmd_detail = open('data/{}.json'.format(cmd))
-        data = json.load(cmd_detail)
-    finally:
+    
+    data = json.load(cmd_detail)
+    try:
         return data
     return "Data tidak ditemukan"
 
