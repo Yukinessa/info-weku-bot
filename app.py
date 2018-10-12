@@ -55,7 +55,7 @@ def handle_message(event):
             x=cmd
             analisa = Analisa(x)
             data = analisa
-            data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data[0],data[1],data[2])
+            data_text = "Nama : {0}\nDeskripsi : {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
         else:
             data_text = "Perintah tidak ditemukan!"
     bot_api.reply_message(event.reply_token, TextSendMessage(text=data_text))
