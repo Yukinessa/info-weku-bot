@@ -19,7 +19,7 @@ def command_list(text):
         if(text.lower()==cmd):
             cmd_detail = open('data/{}.json'.format(cmd))
     data = json.load(cmd_detail)
-    return data
+    return "Nama: {0}\nDeskripsi: {1}\nPenggunaan: {2}".format(data['nama'],data['deskripsi'],data['penggunaan'])
 
 @app.route("/")
 def home():
